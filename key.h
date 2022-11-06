@@ -32,18 +32,19 @@ typedef struct key
 }key;
 
 static void init(key * mk) {
-#ifdef rand
+#ifdef ENABLE_RAND
 	srand(time(0));
 	mk->K0= rand() << 16 | rand();
 	mk->K1= rand() << 16 | rand();
 	mk->K2= rand() << 16 | rand();
 	mk->K3= rand() << 16 | rand();
 	sleep(1);
-#endif
+#else
 	mk->K0= 0x01234567;
 	mk->K1= 0x89ABCDEF;
 	mk->K2= 0xFEDCBA98;
 	mk->K3= 0x76543210;
+#endif
 }
 static void key_init(key *mk) {
 	mk->K0 = mk->K0 ^ fk[0];
