@@ -8,7 +8,7 @@
 #define cr(x,y) ((x >> y) | (x << (32 - y)))
 #define cl(x,y) ((x << y) | (x >> (32 - y)))
 //encrypt
-static uint32_t tau(u_int32_t t) {
+static uint32_t tau(uint32_t t) {
 	uint32_t t1=box( (t & 0xFF000000 ) >> 24 ) << 24;
 	uint32_t t2=box( (t & 0x00FF0000 ) >> 16 ) << 16;
 	uint32_t t3=box( (t & 0x0000FF00 ) >> 8  ) << 8 ;
@@ -31,26 +31,12 @@ typedef struct key
 	uint32_t K3;
 }key;
 
-static void init(key * mk) {
-#ifdef ENABLE_RAND
-	srand(time(0));
-	mk->K0= rand() << 16 | rand();
-	mk->K1= rand() << 16 | rand();
-	mk->K2= rand() << 16 | rand();
-	mk->K3= rand() << 16 | rand();
-	sleep(1);
-#else
-	mk->K0= 0x01234567;
-	mk->K1= 0x89ABCDEF;
-	mk->K2= 0xFEDCBA98;
-	mk->K3= 0x76543210;
-#endif
-}
-static void key_init(key *mk) {
-	mk->K0 = mk->K0 ^ fk[0];
-	mk->K1 = mk->K1 ^ fk[1];
-	mk->K2 = mk->K2 ^ fk[2];
-	mk->K3 = mk->K3 ^ fk[3];
-}
+typedef struct {
+	key k;
+	key midmsg;
+	uint32_t rk;
+	uint32_t dataseg;
+}state;
+
 
 
