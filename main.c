@@ -8,6 +8,10 @@ key data;
 key output;
 
 int main() {
+	uint32_t a=0x838;
+	uint32_t b=0x5859;
+	uint64_t out = (a*b)%(0x10000+1);
+	printf("%lx",out);
 	init(&k); //key init
 	init(&data);
 	printf("result:\n");

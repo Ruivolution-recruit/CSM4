@@ -51,16 +51,18 @@ void encrypt(key data, key k , key *output) {
 		state_obj.k.K1=state_obj.k.K2;
 		state_obj.k.K2=state_obj.k.K3;
 		state_obj.k.K3=state_obj.rk;
-		
+
 		state_obj.dataseg = state_obj.midmsg.K0 ^ L1(tau(state_obj.midmsg.K1 ^ state_obj.midmsg.K2 ^ state_obj.midmsg.K3 ^ state_obj.rk));
 		state_obj.midmsg.K0=state_obj.midmsg.K1;
 		state_obj.midmsg.K1=state_obj.midmsg.K2;
 		state_obj.midmsg.K2=state_obj.midmsg.K3;
 		state_obj.midmsg.K3=state_obj.dataseg;
+
 	}
 	invert(&(state_obj.midmsg));
 	eq(state_obj.midmsg,output);
 }
+
 
 void decrypt(key edata,key k,key *output) {
 	state state_obj ={k,edata,0u};
