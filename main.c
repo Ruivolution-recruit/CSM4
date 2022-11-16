@@ -2,16 +2,13 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <inc.h>
-
 key k;
 key data;
 key output;
+state *catch;
 
 int main() {
-	uint32_t a=0x838;
-	uint32_t b=0x5859;
-	uint64_t out = (a*b)%(0x10000+1);
-	printf("%lx",out);
+	/*
 	init(&k); //key init
 	init(&data);
 	printf("result:\n");
@@ -24,6 +21,7 @@ int main() {
 	assert(data.K2 == output.K2 );
 	assert(data.K3 == output.K3 );
 	printf("decrypt:%08X%08X%08X%08X\n",output.K0,output.K1,output.K2,output.K3);
+	*/
+	attack(11);
 	
-	return 0;
 }
